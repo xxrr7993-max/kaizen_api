@@ -97,6 +97,7 @@ public class AuthServiceImpl implements AuthService {
         user.setPasswordResetToken(null);
         user.setPasswordResetTokenExpiry(null);
         userRepository.save(user);
+        refreshTokenRepository.deleteByUser(user);
     }
 
     @Override
@@ -109,6 +110,7 @@ public class AuthServiceImpl implements AuthService {
         }
         user.setPassword(passwordEncoder.encode(dto.newPassword()));
         userRepository.save(user);
+        refreshTokenRepository.deleteByUser(user);
     }
 
     private AuthResponseDto buildAuthResponse(UserModel user) {

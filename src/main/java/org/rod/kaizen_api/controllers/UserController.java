@@ -1,12 +1,12 @@
 package org.rod.kaizen_api.controllers;
 
+import jakarta.validation.Valid;
+import org.rod.kaizen_api.dtos.UpdateProfileDto;
 import org.rod.kaizen_api.dtos.UserProfileDto;
 import org.rod.kaizen_api.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
@@ -25,8 +25,8 @@ public class UserController {
 
     @PatchMapping("/me")
     public ResponseEntity<UserProfileDto> updateProfile(@AuthenticationPrincipal String userId,
-                                                        @RequestBody Map<String, String> body) {
-        return ResponseEntity.ok(userService.updateProfile(userId, body.get("name"), body.get("email")));
+                                                        @Valid @RequestBody UpdateProfileDto dto) {
+        return ResponseEntity.ok(userService.updateProfile(userId, dto.name(), dto.email()));
     }
 
     @DeleteMapping("/me")
