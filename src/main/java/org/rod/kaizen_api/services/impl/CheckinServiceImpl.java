@@ -88,6 +88,7 @@ public class CheckinServiceImpl implements CheckinService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<WeeklyDayDto> getWeekly(UserModel user) {
         LocalDate today = LocalDate.now();
         LocalDate weekStart = today.minusDays(6);
@@ -105,6 +106,7 @@ public class CheckinServiceImpl implements CheckinService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public MonthlyDataDto getMonthly(UserModel user, String month) {
         YearMonth ym = YearMonth.parse(month);
         List<CheckinModel> checkins = checkinRepository

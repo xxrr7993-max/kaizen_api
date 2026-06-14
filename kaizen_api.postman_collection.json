@@ -12,121 +12,85 @@
   ],
   "item": [
     {
-      "name": "Auth",
+      "name": "1. Auth",
       "item": [
         {
           "name": "Register",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "var json = pm.response.json();",
-                  "pm.collectionVariables.set('accessToken', json.accessToken);",
-                  "pm.collectionVariables.set('refreshToken', json.refreshToken);",
-                  "pm.test('Status 201', () => pm.response.to.have.status(201));",
-                  "pm.test('Has accessToken', () => pm.expect(json.accessToken).to.be.a('string'));",
-                  "pm.test('Has user.id', () => pm.expect(json.user.id).to.be.a('string'));"
-                ]
-              }
-            }
-          ],
+          "event": [{
+            "listen": "test",
+            "script": { "exec": [
+              "var json = pm.response.json();",
+              "pm.collectionVariables.set('accessToken', json.accessToken);",
+              "pm.collectionVariables.set('refreshToken', json.refreshToken);",
+              "pm.test('Status 201', () => pm.response.to.have.status(201));",
+              "pm.test('Has accessToken', () => pm.expect(json.accessToken).to.be.a('string'));",
+              "pm.test('Has user.id', () => pm.expect(json.user.id).to.be.a('string'));"
+            ]}
+          }],
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
             "url": "{{baseUrl}}/auth/register",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Rodger Dias\",\n  \"email\": \"rodger@kaizen.com\",\n  \"password\": \"senha123\"\n}"
-            }
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Rodger Dias\",\n  \"email\": \"rodger@kaizen.com\",\n  \"password\": \"senha123\"\n}" }
           }
         },
         {
           "name": "Login",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "var json = pm.response.json();",
-                  "pm.collectionVariables.set('accessToken', json.accessToken);",
-                  "pm.collectionVariables.set('refreshToken', json.refreshToken);",
-                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
-                  "pm.test('Has tokens', () => { pm.expect(json.accessToken).to.be.a('string'); pm.expect(json.refreshToken).to.be.a('string'); });"
-                ]
-              }
-            }
-          ],
+          "event": [{
+            "listen": "test",
+            "script": { "exec": [
+              "var json = pm.response.json();",
+              "pm.collectionVariables.set('accessToken', json.accessToken);",
+              "pm.collectionVariables.set('refreshToken', json.refreshToken);",
+              "pm.test('Status 200', () => pm.response.to.have.status(200));",
+              "pm.test('Has tokens', () => { pm.expect(json.accessToken).to.be.a('string'); pm.expect(json.refreshToken).to.be.a('string'); });"
+            ]}
+          }],
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
             "url": "{{baseUrl}}/auth/login",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"rodger@kaizen.com\",\n  \"password\": \"senha123\"\n}"
-            }
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"rodger@kaizen.com\",\n  \"password\": \"senha123\"\n}" }
           }
         },
         {
           "name": "Refresh Token",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "var json = pm.response.json();",
-                  "pm.collectionVariables.set('accessToken', json.accessToken);",
-                  "pm.collectionVariables.set('refreshToken', json.refreshToken);",
-                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
-                  "pm.test('New tokens returned', () => { pm.expect(json.accessToken).to.be.a('string'); });"
-                ]
-              }
-            }
-          ],
+          "event": [{
+            "listen": "test",
+            "script": { "exec": [
+              "var json = pm.response.json();",
+              "pm.collectionVariables.set('accessToken', json.accessToken);",
+              "pm.collectionVariables.set('refreshToken', json.refreshToken);",
+              "pm.test('Status 200', () => pm.response.to.have.status(200));",
+              "pm.test('New tokens returned', () => pm.expect(json.accessToken).to.be.a('string'));"
+            ]}
+          }],
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
             "url": "{{baseUrl}}/auth/refresh",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"refreshToken\": \"{{refreshToken}}\"\n}"
-            }
+            "body": { "mode": "raw", "raw": "{\n  \"refreshToken\": \"{{refreshToken}}\"\n}" }
           }
         },
         {
           "name": "Forgot Password",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('Status 200', () => pm.response.to.have.status(200));"
-                ]
-              }
-            }
-          ],
+          "event": [{
+            "listen": "test",
+            "script": { "exec": ["pm.test('Status 200', () => pm.response.to.have.status(200));"] }
+          }],
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
             "url": "{{baseUrl}}/auth/forgot-password",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"rodger@kaizen.com\"\n}"
-            }
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"rodger@kaizen.com\"\n}" }
           }
         },
         {
           "name": "Change Password",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('Status 200', () => pm.response.to.have.status(200));"
-                ]
-              }
-            }
-          ],
+          "event": [{
+            "listen": "test",
+            "script": { "exec": ["pm.test('Status 200', () => pm.response.to.have.status(200));"] }
+          }],
           "request": {
             "method": "POST",
             "header": [
@@ -134,32 +98,25 @@
               { "key": "Authorization", "value": "Bearer {{accessToken}}" }
             ],
             "url": "{{baseUrl}}/auth/change-password",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"currentPassword\": \"senha123\",\n  \"newPassword\": \"senha456\"\n}"
-            }
+            "body": { "mode": "raw", "raw": "{\n  \"currentPassword\": \"senha123\",\n  \"newPassword\": \"senha123\"\n}" }
           }
         }
       ]
     },
     {
-      "name": "Users",
+      "name": "2. Users",
       "item": [
         {
           "name": "Get Profile (me)",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "var json = pm.response.json();",
-                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
-                  "pm.test('Has name and email', () => { pm.expect(json.name).to.be.a('string'); pm.expect(json.email).to.be.a('string'); });",
-                  "pm.test('Has streak fields', () => { pm.expect(json.streak).to.be.a('number'); pm.expect(json.record).to.be.a('number'); });"
-                ]
-              }
-            }
-          ],
+          "event": [{
+            "listen": "test",
+            "script": { "exec": [
+              "var json = pm.response.json();",
+              "pm.test('Status 200', () => pm.response.to.have.status(200));",
+              "pm.test('Has name and email', () => { pm.expect(json.name).to.be.a('string'); pm.expect(json.email).to.be.a('string'); });",
+              "pm.test('Has streak fields', () => { pm.expect(json.streak).to.be.a('number'); pm.expect(json.record).to.be.a('number'); });"
+            ]}
+          }],
           "request": {
             "method": "GET",
             "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
@@ -168,17 +125,13 @@
         },
         {
           "name": "Update Profile (me)",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
-                  "pm.test('Name updated', () => pm.expect(pm.response.json().name).to.eql('Rodger Atualizado'));"
-                ]
-              }
-            }
-          ],
+          "event": [{
+            "listen": "test",
+            "script": { "exec": [
+              "pm.test('Status 200', () => pm.response.to.have.status(200));",
+              "pm.test('Name updated', () => pm.expect(pm.response.json().name).to.eql('Rodger Atualizado'));"
+            ]}
+          }],
           "request": {
             "method": "PATCH",
             "header": [
@@ -186,33 +139,27 @@
               { "key": "Authorization", "value": "Bearer {{accessToken}}" }
             ],
             "url": "{{baseUrl}}/users/me",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Rodger Atualizado\"\n}"
-            }
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Rodger Atualizado\"\n}" }
           }
         }
       ]
     },
     {
-      "name": "Victories",
+      "name": "3. Victories — Setup",
       "item": [
         {
           "name": "Onboarding — Save All (PUT)",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "var json = pm.response.json();",
-                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
-                  "pm.test('4 victories returned', () => pm.expect(json).to.have.length(4));",
-                  "pm.collectionVariables.set('victoryId', json[0].id);",
-                  "pm.test('Victory has id, category, goal', () => { pm.expect(json[0].id).to.be.a('string'); pm.expect(json[0].category).to.eql('FISICA'); });"
-                ]
-              }
-            }
-          ],
+          "event": [{
+            "listen": "test",
+            "script": { "exec": [
+              "var json = pm.response.json();",
+              "pm.test('Status 200', () => pm.response.to.have.status(200));",
+              "pm.test('4 victories returned', () => pm.expect(json).to.have.length(4));",
+              "pm.collectionVariables.set('victoryId', json[0].id);",
+              "pm.test('First victory is FISICA', () => pm.expect(json[0].category).to.eql('FISICA'));",
+              "pm.test('Victory has subtasks', () => pm.expect(json[0].subtasks).to.be.an('array'));"
+            ]}
+          }],
           "request": {
             "method": "PUT",
             "header": [
@@ -220,115 +167,20 @@
               { "key": "Authorization", "value": "Bearer {{accessToken}}" }
             ],
             "url": "{{baseUrl}}/victories",
-            "body": {
-              "mode": "raw",
-              "raw": "[\n  {\"category\": \"FISICA\", \"goal\": \"Malhar 30 min\", \"subtasks\": [\"Aquecimento\", \"Treino força\"]},\n  {\"category\": \"MENTAL\", \"goal\": \"Ler 20 páginas\", \"subtasks\": []},\n  {\"category\": \"ESPIRITUAL\", \"goal\": \"Meditar 10 min\", \"subtasks\": []},\n  {\"category\": \"PESSOAL\", \"goal\": \"Estudar inglês\", \"subtasks\": [\"Duolingo\"]}\n]"
-            }
+            "body": { "mode": "raw", "raw": "[\n  {\"category\": \"FISICA\", \"goal\": \"Malhar 30 min\", \"subtasks\": [\"Aquecimento\", \"Treino força\"]},\n  {\"category\": \"MENTAL\", \"goal\": \"Ler 20 páginas\", \"subtasks\": []},\n  {\"category\": \"ESPIRITUAL\", \"goal\": \"Meditar 10 min\", \"subtasks\": []},\n  {\"category\": \"PESSOAL\", \"goal\": \"Estudar inglês\", \"subtasks\": [\"Duolingo\"]}\n]" }
           }
         },
         {
           "name": "List All Victories",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
-                  "pm.test('Returns array', () => pm.expect(pm.response.json()).to.be.an('array'));"
-                ]
-              }
-            }
-          ],
+          "event": [{
+            "listen": "test",
+            "script": { "exec": [
+              "pm.test('Status 200', () => pm.response.to.have.status(200));",
+              "pm.test('Returns array', () => pm.expect(pm.response.json()).to.be.an('array'));"
+            ]}
+          }],
           "request": {
             "method": "GET",
-            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
-            "url": "{{baseUrl}}/victories"
-          }
-        },
-        {
-          "name": "Create Single Victory",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('Status 201', () => pm.response.to.have.status(201));",
-                  "pm.test('Victory created', () => pm.expect(pm.response.json().id).to.be.a('string'));"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
-            ],
-            "url": "{{baseUrl}}/victories",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"category\": \"FISICA\",\n  \"goal\": \"Nadar 1km\",\n  \"subtasks\": [\"Aquecimento\", \"Nado livre\"]\n}"
-            }
-          }
-        },
-        {
-          "name": "Update Victory",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
-                  "pm.test('Goal updated', () => pm.expect(pm.response.json().goal).to.eql('Malhar 45 min'));"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "PATCH",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
-            ],
-            "url": "{{baseUrl}}/victories/{{victoryId}}",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"category\": \"FISICA\",\n  \"goal\": \"Malhar 45 min\",\n  \"subtasks\": [\"Aquecimento\", \"Treino força\", \"Alongamento\"]\n}"
-            }
-          }
-        },
-        {
-          "name": "Delete Single Victory",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('Status 204', () => pm.response.to.have.status(204));"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "DELETE",
-            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
-            "url": "{{baseUrl}}/victories/{{victoryId}}"
-          }
-        },
-        {
-          "name": "Reset All Victories",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('Status 204', () => pm.response.to.have.status(204));"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "DELETE",
             "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
             "url": "{{baseUrl}}/victories"
           }
@@ -336,27 +188,21 @@
       ]
     },
     {
-      "name": "Checkin",
+      "name": "4. Checkin",
       "item": [
         {
           "name": "Get Today",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "var json = pm.response.json();",
-                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
-                  "pm.test('Has date', () => pm.expect(json.date).to.match(/^\\d{4}-\\d{2}-\\d{2}$/));",
-                  "pm.test('Has victories array', () => pm.expect(json.victories).to.be.an('array'));",
-                  "pm.test('Has completedCount', () => pm.expect(json.completedCount).to.be.a('number'));",
-                  "if (json.victories && json.victories.length > 0) {",
-                  "  pm.collectionVariables.set('victoryId', json.victories[0].victoryId);",
-                  "}"
-                ]
-              }
-            }
-          ],
+          "event": [{
+            "listen": "test",
+            "script": { "exec": [
+              "var json = pm.response.json();",
+              "pm.test('Status 200', () => pm.response.to.have.status(200));",
+              "pm.test('Has date', () => pm.expect(json.date).to.match(/^\\d{4}-\\d{2}-\\d{2}$/));",
+              "pm.test('Has 4 victories', () => pm.expect(json.victories).to.have.length(4));",
+              "pm.test('completedCount is 0', () => pm.expect(json.completedCount).to.eql(0));",
+              "pm.collectionVariables.set('victoryId', json.victories[0].victoryId);"
+            ]}
+          }],
           "request": {
             "method": "GET",
             "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
@@ -365,19 +211,31 @@
         },
         {
           "name": "Toggle Victory",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "var json = pm.response.json();",
-                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
-                  "pm.test('completedCount changes', () => pm.expect(json.completedCount).to.be.a('number'));",
-                  "pm.test('Victory toggled', () => { var v = json.victories.find(v => v.victoryId === pm.collectionVariables.get('victoryId')); pm.expect(v).to.exist; });"
-                ]
-              }
-            }
-          ],
+          "event": [{
+            "listen": "test",
+            "script": { "exec": [
+              "var json = pm.response.json();",
+              "pm.test('Status 200', () => pm.response.to.have.status(200));",
+              "pm.test('completedCount is 1', () => pm.expect(json.completedCount).to.eql(1));",
+              "var v = json.victories.find(v => v.victoryId === pm.collectionVariables.get('victoryId'));",
+              "pm.test('Victory is completed', () => pm.expect(v.completed).to.be.true);"
+            ]}
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/checkin/victory/{{victoryId}}/toggle"
+          }
+        },
+        {
+          "name": "Toggle Victory (undo)",
+          "event": [{
+            "listen": "test",
+            "script": { "exec": [
+              "pm.test('Status 200', () => pm.response.to.have.status(200));",
+              "pm.test('completedCount back to 0', () => pm.expect(pm.response.json().completedCount).to.eql(0));"
+            ]}
+          }],
           "request": {
             "method": "POST",
             "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
@@ -386,17 +244,30 @@
         },
         {
           "name": "Toggle Subtask (index 0)",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
-                  "pm.test('Subtask toggled', () => { var v = pm.response.json().victories.find(v => v.victoryId === pm.collectionVariables.get('victoryId')); if (v && v.subtasks.length > 0) pm.expect(v.subtasks[0]).to.have.property('completed'); });"
-                ]
-              }
-            }
-          ],
+          "event": [{
+            "listen": "test",
+            "script": { "exec": [
+              "pm.test('Status 200', () => pm.response.to.have.status(200));",
+              "var v = pm.response.json().victories.find(v => v.victoryId === pm.collectionVariables.get('victoryId'));",
+              "pm.test('Subtask 0 is completed', () => pm.expect(v.subtasks[0].completed).to.be.true);"
+            ]}
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/checkin/victory/{{victoryId}}/subtask/0/toggle"
+          }
+        },
+        {
+          "name": "Toggle Subtask (undo)",
+          "event": [{
+            "listen": "test",
+            "script": { "exec": [
+              "pm.test('Status 200', () => pm.response.to.have.status(200));",
+              "var v = pm.response.json().victories.find(v => v.victoryId === pm.collectionVariables.get('victoryId'));",
+              "pm.test('Subtask 0 back to false', () => pm.expect(v.subtasks[0].completed).to.be.false);"
+            ]}
+          }],
           "request": {
             "method": "POST",
             "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
@@ -405,18 +276,14 @@
         },
         {
           "name": "Get Streak",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "var json = pm.response.json();",
-                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
-                  "pm.test('Has current and record', () => { pm.expect(json.current).to.be.a('number'); pm.expect(json.record).to.be.a('number'); });"
-                ]
-              }
-            }
-          ],
+          "event": [{
+            "listen": "test",
+            "script": { "exec": [
+              "var json = pm.response.json();",
+              "pm.test('Status 200', () => pm.response.to.have.status(200));",
+              "pm.test('Has current and record', () => { pm.expect(json.current).to.be.a('number'); pm.expect(json.record).to.be.a('number'); });"
+            ]}
+          }],
           "request": {
             "method": "GET",
             "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
@@ -425,19 +292,15 @@
         },
         {
           "name": "Get Weekly",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "var json = pm.response.json();",
-                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
-                  "pm.test('7 days returned', () => pm.expect(json).to.have.length(7));",
-                  "pm.test('Days have victories map', () => { pm.expect(json[0].victories).to.have.all.keys('fisica','mental','espiritual','pessoal'); });"
-                ]
-              }
-            }
-          ],
+          "event": [{
+            "listen": "test",
+            "script": { "exec": [
+              "var json = pm.response.json();",
+              "pm.test('Status 200', () => pm.response.to.have.status(200));",
+              "pm.test('7 days returned', () => pm.expect(json).to.have.length(7));",
+              "pm.test('Days have victories map', () => { pm.expect(json[0].victories).to.have.all.keys('fisica','mental','espiritual','pessoal'); });"
+            ]}
+          }],
           "request": {
             "method": "GET",
             "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
@@ -446,45 +309,32 @@
         },
         {
           "name": "Get Monthly",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "var json = pm.response.json();",
-                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
-                  "pm.test('Has month field', () => pm.expect(json.month).to.be.a('string'));",
-                  "pm.test('Has days map', () => pm.expect(json.days).to.be.an('object'));"
-                ]
-              }
-            }
-          ],
+          "event": [{
+            "listen": "test",
+            "script": { "exec": [
+              "var json = pm.response.json();",
+              "pm.test('Status 200', () => pm.response.to.have.status(200));",
+              "pm.test('Has month field', () => pm.expect(json.month).to.be.a('string'));",
+              "pm.test('Has days map', () => pm.expect(json.days).to.be.an('object'));"
+            ]}
+          }],
           "request": {
             "method": "GET",
             "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
-            "url": {
-              "raw": "{{baseUrl}}/checkin/month?m=2026-06",
-              "query": [{ "key": "m", "value": "2026-06" }]
-            }
+            "url": { "raw": "{{baseUrl}}/checkin/month?m=2026-06", "query": [{ "key": "m", "value": "2026-06" }] }
           }
         },
         {
           "name": "Add Discardable Task",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "var json = pm.response.json();",
-                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
-                  "pm.test('Discardable added', () => pm.expect(json.discardable).to.have.length.above(0));",
-                  "if (json.discardable && json.discardable.length > 0) {",
-                  "  pm.collectionVariables.set('discardableId', json.discardable[json.discardable.length - 1].id);",
-                  "}"
-                ]
-              }
-            }
-          ],
+          "event": [{
+            "listen": "test",
+            "script": { "exec": [
+              "var json = pm.response.json();",
+              "pm.test('Status 200', () => pm.response.to.have.status(200));",
+              "pm.test('Discardable added', () => pm.expect(json.discardable).to.have.length(1));",
+              "pm.collectionVariables.set('discardableId', json.discardable[0].id);"
+            ]}
+          }],
           "request": {
             "method": "POST",
             "header": [
@@ -492,24 +342,19 @@
               { "key": "Authorization", "value": "Bearer {{accessToken}}" }
             ],
             "url": "{{baseUrl}}/checkin/discardable",
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"goal\": \"Beber 2L de água\"\n}"
-            }
+            "body": { "mode": "raw", "raw": "{\n  \"goal\": \"Beber 2L de água\"\n}" }
           }
         },
         {
           "name": "Toggle Discardable Task",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('Status 200', () => pm.response.to.have.status(200));"
-                ]
-              }
-            }
-          ],
+          "event": [{
+            "listen": "test",
+            "script": { "exec": [
+              "pm.test('Status 200', () => pm.response.to.have.status(200));",
+              "var d = pm.response.json().discardable.find(t => t.id === pm.collectionVariables.get('discardableId'));",
+              "pm.test('Task is completed', () => pm.expect(d.completed).to.be.true);"
+            ]}
+          }],
           "request": {
             "method": "POST",
             "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
@@ -518,17 +363,13 @@
         },
         {
           "name": "Delete Discardable Task",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
-                  "pm.test('Discardable removed', () => pm.expect(pm.response.json().discardable).to.be.an('array'));"
-                ]
-              }
-            }
-          ],
+          "event": [{
+            "listen": "test",
+            "script": { "exec": [
+              "pm.test('Status 200', () => pm.response.to.have.status(200));",
+              "pm.test('Discardable removed', () => pm.expect(pm.response.json().discardable).to.have.length(0));"
+            ]}
+          }],
           "request": {
             "method": "DELETE",
             "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
@@ -538,52 +379,110 @@
       ]
     },
     {
-      "name": "Stats",
+      "name": "5. Stats",
       "item": [
         {
           "name": "Progress Stats (6 months)",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "var json = pm.response.json();",
-                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
-                  "pm.test('6 months returned', () => pm.expect(json.months).to.have.length(6));",
-                  "pm.test('Has current stats', () => { pm.expect(json.current.streak).to.be.a('number'); pm.expect(json.current.record).to.be.a('number'); });",
-                  "pm.test('Has completion map', () => { pm.expect(json.completion).to.have.all.keys('fisica','mental','espiritual','pessoal'); });"
-                ]
-              }
-            }
-          ],
+          "event": [{
+            "listen": "test",
+            "script": { "exec": [
+              "var json = pm.response.json();",
+              "pm.test('Status 200', () => pm.response.to.have.status(200));",
+              "pm.test('6 months returned', () => pm.expect(json.months).to.have.length(6));",
+              "pm.test('Has current stats', () => { pm.expect(json.current.streak).to.be.a('number'); pm.expect(json.current.record).to.be.a('number'); });",
+              "pm.test('Has completion map', () => { pm.expect(json.completion).to.have.all.keys('fisica','mental','espiritual','pessoal'); });"
+            ]}
+          }],
           "request": {
             "method": "GET",
             "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
-            "url": {
-              "raw": "{{baseUrl}}/stats/monthly?months=6",
-              "query": [{ "key": "months", "value": "6" }]
-            }
+            "url": { "raw": "{{baseUrl}}/stats/monthly?months=6", "query": [{ "key": "months", "value": "6" }] }
           }
         },
         {
           "name": "Heatmap (28 days)",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "var json = pm.response.json();",
-                  "pm.test('Status 200', () => pm.response.to.have.status(200));",
-                  "pm.test('28 days returned', () => pm.expect(json.days).to.have.length(28));",
-                  "pm.test('Days have victories map', () => { pm.expect(json.days[0].victories).to.have.all.keys('fisica','mental','espiritual','pessoal'); });"
-                ]
-              }
-            }
-          ],
+          "event": [{
+            "listen": "test",
+            "script": { "exec": [
+              "var json = pm.response.json();",
+              "pm.test('Status 200', () => pm.response.to.have.status(200));",
+              "pm.test('28 days returned', () => pm.expect(json.days).to.have.length(28));",
+              "pm.test('Days have victories map', () => { pm.expect(json.days[0].victories).to.have.all.keys('fisica','mental','espiritual','pessoal'); });"
+            ]}
+          }],
           "request": {
             "method": "GET",
             "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
             "url": "{{baseUrl}}/stats/heatmap"
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Victories — CRUD extra",
+      "item": [
+        {
+          "name": "Create Single Victory",
+          "event": [{
+            "listen": "test",
+            "script": { "exec": [
+              "var json = pm.response.json();",
+              "pm.test('Status 201', () => pm.response.to.have.status(201));",
+              "pm.test('Victory created', () => pm.expect(json.id).to.be.a('string'));",
+              "pm.collectionVariables.set('victoryId', json.id);"
+            ]}
+          }],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": "{{baseUrl}}/victories",
+            "body": { "mode": "raw", "raw": "{\n  \"category\": \"FISICA\",\n  \"goal\": \"Nadar 1km\",\n  \"subtasks\": [\"Aquecimento\", \"Nado livre\"]\n}" }
+          }
+        },
+        {
+          "name": "Update Victory",
+          "event": [{
+            "listen": "test",
+            "script": { "exec": [
+              "pm.test('Status 200', () => pm.response.to.have.status(200));",
+              "pm.test('Goal updated', () => pm.expect(pm.response.json().goal).to.eql('Nadar 2km'));"
+            ]}
+          }],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+            ],
+            "url": "{{baseUrl}}/victories/{{victoryId}}",
+            "body": { "mode": "raw", "raw": "{\n  \"category\": \"FISICA\",\n  \"goal\": \"Nadar 2km\",\n  \"subtasks\": [\"Aquecimento\", \"Nado livre\", \"Alongamento\"]\n}" }
+          }
+        },
+        {
+          "name": "Delete Single Victory",
+          "event": [{
+            "listen": "test",
+            "script": { "exec": ["pm.test('Status 204', () => pm.response.to.have.status(204));"] }
+          }],
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/victories/{{victoryId}}"
+          }
+        },
+        {
+          "name": "Reset All Victories",
+          "event": [{
+            "listen": "test",
+            "script": { "exec": ["pm.test('Status 204', () => pm.response.to.have.status(204));"] }
+          }],
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+            "url": "{{baseUrl}}/victories"
           }
         }
       ]
