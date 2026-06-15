@@ -156,7 +156,7 @@
               "pm.test('Status 200', () => pm.response.to.have.status(200));",
               "pm.test('4 victories returned', () => pm.expect(json).to.have.length(4));",
               "pm.collectionVariables.set('victoryId', json[0].id);",
-              "pm.test('First victory is FISICA', () => pm.expect(json[0].category).to.eql('FISICA'));",
+              "pm.test('First victory is FISICA', () => pm.expect(json[0].category).to.eql('fisica'));",
               "pm.test('Victory has subtasks', () => pm.expect(json[0].subtasks).to.be.an('array'));"
             ]}
           }],
