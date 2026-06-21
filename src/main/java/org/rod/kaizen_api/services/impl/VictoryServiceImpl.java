@@ -5,6 +5,7 @@ import org.rod.kaizen_api.dtos.victory.VictoryRecordDto;
 import org.rod.kaizen_api.exceptions.NotFoundException;
 import org.rod.kaizen_api.models.UserModel;
 import org.rod.kaizen_api.models.VictoryModel;
+import org.rod.kaizen_api.repositories.VictoryCheckinRepository;
 import org.rod.kaizen_api.repositories.VictoryRepository;
 import org.rod.kaizen_api.services.VictoryService;
 import org.springframework.stereotype.Service;
@@ -18,9 +19,11 @@ import java.util.UUID;
 public class VictoryServiceImpl implements VictoryService {
 
     private final VictoryRepository victoryRepository;
+    private final VictoryCheckinRepository victoryCheckinRepository;
 
-    public VictoryServiceImpl(VictoryRepository victoryRepository) {
+    public VictoryServiceImpl(VictoryRepository victoryRepository, VictoryCheckinRepository victoryCheckinRepository) {
         this.victoryRepository = victoryRepository;
+        this.victoryCheckinRepository = victoryCheckinRepository;
     }
 
     @Override
@@ -75,6 +78,7 @@ public class VictoryServiceImpl implements VictoryService {
     public void delete(UserModel user, UUID id) {
         VictoryModel v = victoryRepository.findByVictoryIdAndUser(id, user)
                 .orElseThrow(() -> new NotFoundException("Victory not found"));
+        victoryCheckinRepository.deleteAll(victoryCheckinRepository.findAllByVictory(v));
         victoryRepository.delete(v);
     }
 

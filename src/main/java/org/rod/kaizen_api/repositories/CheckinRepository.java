@@ -17,4 +17,5 @@ public interface CheckinRepository extends JpaRepository<CheckinModel, UUID> {
 
     @Query("SELECT COUNT(DISTINCT c) FROM CheckinModel c JOIN c.victoryCheckins vc WHERE c.user = :user AND vc.completed = true")
     long countActiveDays(UserModel user);
+
 }

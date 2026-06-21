@@ -41,6 +41,11 @@ public class VictoryModel {
     @Column(name = "sort_order", nullable = false)
     private int order = 0;
 
+    @Column(nullable = false)
+    private Boolean isLenient = true;
+
+    private String dayOfWeek;
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;

@@ -12,4 +12,6 @@ import java.util.UUID;
 public interface VictoryCheckinRepository extends JpaRepository<VictoryCheckinModel, UUID> {
     Optional<VictoryCheckinModel> findByCheckinAndVictory(CheckinModel checkin, VictoryModel victory);
     List<VictoryCheckinModel> findByCheckin(CheckinModel checkin);
+
+    List<VictoryCheckinModel> findAllByVictory(VictoryModel victory);
 }
